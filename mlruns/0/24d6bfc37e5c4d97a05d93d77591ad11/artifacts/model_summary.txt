@@ -1,0 +1,10 @@
+  | Name     | Type               | Params
+------------------------------------------------
+0 | l1       | Linear             | 23.6 K
+1 | l2       | Linear             | 310   
+2 | accuracy | MulticlassAccuracy | 0     
+------------------------------------------------
+23.9 K    Trainable params
+0         Non-trainable params
+23.9 K    Total params
+0.095     Total estimated model params size (MB)

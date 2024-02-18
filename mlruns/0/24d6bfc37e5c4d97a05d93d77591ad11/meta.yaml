@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/Projects/AIOPS/ImgClsf/mlruns/0/24d6bfc37e5c4d97a05d93d77591ad11/artifacts
+end_time: 1708207114622
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 24d6bfc37e5c4d97a05d93d77591ad11
+run_name: amusing-smelt-908
+run_uuid: 24d6bfc37e5c4d97a05d93d77591ad11
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708207111537
+status: 3
+tags: []
+user_id: awrit

@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/Projects/AIOPS/ImgClsf/mlruns/0/c7290b37f7ef4c2984de4e9c334ca283/artifacts
+end_time: 1708209064782
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c7290b37f7ef4c2984de4e9c334ca283
+run_name: rumbling-goat-446
+run_uuid: c7290b37f7ef4c2984de4e9c334ca283
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708209009940
+status: 3
+tags: []
+user_id: awrit
