@@ -1,0 +1,16 @@
+artifact_uri: file:///d:/Projects/AIOPS/ImgClsf/mlruns/0/65eb6298578946d3b207b3c9bc8608c3/artifacts
+deleted_time: 1708382663712
+end_time: 1708382408680
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 65eb6298578946d3b207b3c9bc8608c3
+run_name: invincible-wasp-613
+run_uuid: 65eb6298578946d3b207b3c9bc8608c3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708382385960
+status: 4
+tags: []
+user_id: awrit

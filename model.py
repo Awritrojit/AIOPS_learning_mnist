@@ -22,6 +22,10 @@ class SimpleMLP(L.LightningModule):
         self.fc1 = nn.Linear(28*28, 64)
         self.relu = nn.ReLU()
         self.fc2 = nn.Linear(64, 10)
+
+        self.test_step_outputs_loss = []
+        self.test_step_outputs_acc = []
+
         self.accuracy = Accuracy("multiclass", num_classes=10)
 
     def forward(self, x):
@@ -31,7 +35,7 @@ class SimpleMLP(L.LightningModule):
         x = self.fc2(x)
         return x
     
-    def training_step(self, batch, batch_nb):
+    def training_step(self, batch):
         x, y = batch
         logits = self(x)
         loss = nn.CrossEntropyLoss()(logits, y)
@@ -42,6 +46,29 @@ class SimpleMLP(L.LightningModule):
         self.log("train_loss", loss, on_epoch=True)
         self.log("acc", acc, on_epoch=True)
         return loss
+    
+    def test_step(self, batch):
+        x, y = batch
+        logits = self(x)
+        loss = nn.CrossEntropyLoss()(logits, y)
+        self.test_step_outputs_loss.append(loss)
+
+        pred = logits.argmax(dim=1)
+        acc = self.accuracy(pred, y)
+        self.test_step_outputs_acc.append(acc)
+
+        # PyTorch `self.log` will be automatically captured by MLflow.
+        self.log("test_loss", loss)
+        self.log("test_acc", acc)
+        return loss
+
+    def on_test_epoch_end(self):
+        avg_loss = torch.stack(self.test_step_outputs_loss).mean()
+        avg_acc = torch.stack(self.test_step_outputs_acc).mean()
+
+        # Log average test loss and accuracy for the entire test set.
+        self.log("avg_test_loss", avg_loss)
+        self.log("avg_test_acc", avg_acc)
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=0.001)
@@ -72,11 +99,29 @@ def print_auto_logged_info(r):
 
 
 # Load MNIST dataset.
-train_ds = MNIST(
+mnist_dataset = MNIST(
     os.getcwd(), train=True, download=True, transform=transforms.ToTensor()
 )
 
-train_loader = DataLoader(train_ds, batch_size=batch_size)
+# Split the dataset into training and test sets
+train_size = int(0.8 * len(mnist_dataset))
+test_size = len(mnist_dataset) - train_size
+train_dataset, test_dataset = torch.utils.data.random_split(mnist_dataset, [train_size, test_size])
+
+# Save the test set
+train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False)
+
+test_loader = DataLoader(test_dataset, batch_size=len(test_dataset), shuffle=False)
+
+# Create a directory to save PNG images
+save_dir = "./data/mnist_test_images"
+os.makedirs(save_dir, exist_ok=True)
+
+# Iterate through the test set, convert tensors to images, and save as PNG
+for i, (image, label) in enumerate(zip(*next(iter(test_loader)))):
+    image = transforms.ToPILImage()(image)
+    file_name = os.path.join(save_dir, f"{label.item()}_image_{i}.png")
+    image.save(file_name)
 
 # Initialize a trainer.
 trainer = L.Trainer(max_epochs=5)
@@ -87,6 +132,8 @@ mlflow.pytorch.autolog()
 # Train the model.
 with mlflow.start_run() as run:
     trainer.fit(model, train_loader)
+
+    trainer.test(model, test_loader)
 
 # Fetch the auto logged parameters and metrics.
 print_auto_logged_info(mlflow.get_run(run_id=run.info.run_id))

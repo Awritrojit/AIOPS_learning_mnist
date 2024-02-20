@@ -1,0 +1,15 @@
+artifact_uri: file:///d:/Projects/AIOPS/ImgClsf/mlruns/0/c89566f24f7b4bf0b526c7ac29c426be/artifacts
+end_time: 1708382515480
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c89566f24f7b4bf0b526c7ac29c426be
+run_name: melodic-seal-579
+run_uuid: c89566f24f7b4bf0b526c7ac29c426be
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708382492506
+status: 3
+tags: []
+user_id: awrit

@@ -1,0 +1,16 @@
+artifact_uri: file:///d:/Projects/AIOPS/ImgClsf/mlruns/0/24005fa4a9124421b61899b4a82e6510/artifacts
+deleted_time: 1708382663712
+end_time: 1708382045963
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 24005fa4a9124421b61899b4a82e6510
+run_name: bright-elk-944
+run_uuid: 24005fa4a9124421b61899b4a82e6510
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708382023257
+status: 4
+tags: []
+user_id: awrit
